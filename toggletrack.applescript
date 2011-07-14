@@ -5,6 +5,9 @@ tell application "iTunes"
   if player state is playing then
     # Get the currently playing track.
     set playingTrack to current track
+    set trackArtist to artist of playingTrack
+    set trackName to name of playingTrack
+    set trackTitle to trackArtist & " - " & trackName
 
     # Toggle the 'enabled' checkbox.
     set newValue to (not enabled of playingTrack)
@@ -27,10 +30,10 @@ if growlIsRunning then
 
   # Contract message to send with Growl.
   if newValue is true then
-    set growlMsg to "checked current track"
+    set growlMsg to "checked: " & trackTitle
     set growlIcon to plusIconPath
   else
-    set growlMsg to "unchecked current track"
+    set growlMsg to "unchecked: " & trackTitle
     set growlIcon to minusIconPath
   end if
 
